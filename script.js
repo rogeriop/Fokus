@@ -5,22 +5,42 @@ const curtoBt = document.querySelector('.app__card-button--curto');
 const longoBt = document.querySelector('.app__card-button--longo');
 const banner = document.querySelector('.app__image');
 const titulo = document.querySelector('.app__title');
+const botoes = document.querySelectorAll('.app__card-button');
+const musicaFocuInput = document.querySelector('#alternar-musica');
+const musica = new Audio('/sons/luna-rise-part-one.mp3');
+
+musica.loop =true;
+
+musicaFocuInput.addEventListener('change', () => {
+    if(musica.paused) {
+        musica.play();
+    } else {
+        musica.pause();
+    }
+})
 
 focoBt.addEventListener('click', () => {
     alterarContexto('foco');
+    focoBt.classList.add('active');
+
     //html.setAttribute('data-contexto', 'foco');
     //banner.setAttribute('src', '/imagens/foco.png');
 })
 
 curtoBt.addEventListener('click', () => {
     alterarContexto('descanso-curto');
+    curtoBt.classList.add('active');
 })
 
 longoBt.addEventListener('click', () => {
     alterarContexto('descanso-longo');
+    longoBt.classList.add('active');
 })
 
 function alterarContexto(contexto) {
+    botoes.forEach((botao) => {
+        botao.classList.remove('active');
+    })
     html.setAttribute('data-contexto', contexto);
     banner.setAttribute('src', `/imagens/${contexto}.png`);
     switch (contexto) {
